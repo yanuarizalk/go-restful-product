@@ -21,7 +21,7 @@ func Migrate(migrateModel ...any) error {
 	return App.AutoMigrate(migrateModel...)
 }
 
-func Connect() error {
+func Connect(dbConfig config.DBConfig) error {
 	var err error
 
 	var sqlLogger logger.Interface
@@ -29,7 +29,7 @@ func Connect() error {
 		sqlLogger = logger.Default
 	}
 
-	App, err = gorm.Open(mysql.Open(config.Database.GetDsn()), &gorm.Config{
+	App, err = gorm.Open(mysql.Open(dbConfig.GetDsn()), &gorm.Config{
 		PrepareStmt:                              true,
 		DisableForeignKeyConstraintWhenMigrating: true,
 		Logger:                                   sqlLogger,
@@ -38,7 +38,7 @@ func Connect() error {
 		return err
 	}
 
-	if config.Database.Migrate {
+	if dbConfig.Migrate {
 		Migrate(&product.Data{})
 		/* seeder.SeedProducts(App, &seeder.Option{
 			Count: 10,

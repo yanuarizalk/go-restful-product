@@ -69,7 +69,7 @@ func (ctx Context) Update(data Data) (Data, error) {
 	var refData DataSet[Data]
 	tx := ctx.DB.Limit(2).Find(&refData, "title = ? OR id = ?", data.Title, data.ID.String())
 	if tx.RowsAffected > 0 {
-		if found := refData.FindTitle(data.Title); found != nil && found.ID != data.ID {
+		if found := refData.FindTitle(data.Title); found != nil && found.ID != data.ID && tx.RowsAffected > 1 {
 			return Data{}, fmt.Errorf(ERR_TITLE_EXISTS)
 		}
 	} else if tx.Error != nil {

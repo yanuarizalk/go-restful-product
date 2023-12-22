@@ -30,7 +30,7 @@ import (
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 func main() {
-	err := database.Connect()
+	err := database.Connect(config.Database)
 	if err != nil {
 		panic(err)
 	}

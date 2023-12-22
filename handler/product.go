@@ -64,7 +64,7 @@ func GetProduct(c *fiber.Ctx) error {
 	}.Get(id)
 	if err != nil {
 		if err.Error() == model.ERR_NOT_FOUND {
-			return internalError(c, err, err.Error())
+			return invalidRequest(c, err, err.Error())
 		}
 		return internalError(c, err, ERR_MSG_UNKNOWN)
 	}
@@ -185,5 +185,9 @@ func (data ProductPayload) Data() product.Data {
 		Image:       data.Image,
 	}
 
+	return result
+}
+func (data ProductPayload) JSON() []byte {
+	result, _ := json.Marshal(data)
 	return result
 }

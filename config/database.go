@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-type db struct {
+type DBConfig struct {
 	// Driver string
 	Host                 string
 	Port                 int64
@@ -15,9 +15,9 @@ type db struct {
 	Migrate              bool
 }
 
-var Database db
+var Database DBConfig
 
-func (config db) GetDsn() string {
+func (config DBConfig) GetDsn() string {
 	if config.User == "" && config.Password == "" {
 		return fmt.Sprintf("tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", config.Host, config.Port, config.Name)
 	}
