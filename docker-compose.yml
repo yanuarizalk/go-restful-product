@@ -1,0 +1,16 @@
+version: "3.5"
+
+services:
+  go-restful-test:
+    build: .
+    image: go-restful-test
+    environment:
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    ports:
+      - 3000:3000
+
+
+

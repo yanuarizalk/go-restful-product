@@ -1,0 +1,194 @@
+basePath: /
+definitions:
+  handler.ProductPayload:
+    properties:
+      description:
+        type: string
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+    required:
+    - description
+    - title
+    type: object
+  product.Data:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+      updated_at:
+        type: string
+    required:
+    - id
+    type: object
+  product.PreviewData:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:3000
+info:
+  contact:
+    email: me@yanuarizal.net
+    name: Yanuarizal K
+    url: https://www.yanuarizal.net
+  description: This is a sample restful api with fiber, gorm & testing.
+  title: Go Restful Test
+  version: "1.0"
+paths:
+  /products:
+    get:
+      description: Preview products
+      parameters:
+      - default: 1
+        description: 'Default: 1'
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 'Default: 10'
+        in: query
+        name: size
+        type: integer
+      - description: Order by column
+        enum:
+        - id
+        - title
+        - description
+        - rating
+        - image
+        - created_at
+        - updated_at
+        - deleted_at
+        in: query
+        name: sort_by
+        type: string
+      - description: 'Default: asc'
+        enum:
+        - asc
+        - desc
+        in: query
+        name: sort_as
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/product.PreviewData'
+            type: array
+      summary: Show products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Create a product
+      parameters:
+      - description: product payload
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/handler.ProductPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Data'
+      summary: Create product
+      tags:
+      - products
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product
+      parameters:
+      - description: product uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Data'
+      summary: Delete product
+      tags:
+      - products
+    get:
+      description: Show product detail
+      parameters:
+      - description: product uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Data'
+      summary: Show product detail
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: Update a product
+      parameters:
+      - description: product payload
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/handler.ProductPayload'
+      - description: product uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Data'
+      summary: Update product
+      tags:
+      - products
+swagger: "2.0"
