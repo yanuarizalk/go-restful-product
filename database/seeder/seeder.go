@@ -17,7 +17,7 @@ var (
 	}
 )
 
-func Seeds[T any](db *gorm.DB, opt *Option) {
+func Seeds[T any](db *gorm.DB, opt *Option) error {
 	var err error
 	var data T
 
@@ -38,10 +38,14 @@ func Seeds[T any](db *gorm.DB, opt *Option) {
 			dataSet = append(dataSet, data)
 		}
 
-		if trx := db.Create(dataSet); trx.Error != nil {
-			fmt.Println(err)
+		trx := db.Create(dataSet)
+		if trx.Error != nil {
+			fmt.Println(trx.Error)
 		} else {
 			fmt.Println("Data successfully seeded: ", trx.RowsAffected)
 		}
+		return trx.Error
 	}
+
+	return fmt.Errorf("unable to seeds, table schema is not created yet")
 }

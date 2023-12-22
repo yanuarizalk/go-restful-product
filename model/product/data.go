@@ -38,7 +38,7 @@ type Context struct {
 }
 
 func (model Data) TableName() string {
-	return "product"
+	return TABLE_NAME
 }
 
 func (model *Data) BeforeCreate(trx *gorm.DB) (err error) {

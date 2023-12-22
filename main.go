@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.yanuarizal.net/go-restful-product/cmd"
 	"github.yanuarizal.net/go-restful-product/config"
 	"github.yanuarizal.net/go-restful-product/database"
 	"github.yanuarizal.net/go-restful-product/router"
@@ -34,6 +35,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	cmd.Execute()
 
 	app := fiber.New(config.Fiber)
 	app.Use(logger.New(), recover.New())

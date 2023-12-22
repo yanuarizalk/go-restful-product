@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.yanuarizal.net/go-restful-product/config"
+	"github.yanuarizal.net/go-restful-product/database/migration"
 	"github.yanuarizal.net/go-restful-product/database/seeder"
 	"github.yanuarizal.net/go-restful-product/model/product"
 	"gorm.io/driver/mysql"
@@ -13,8 +14,8 @@ var (
 	App *gorm.DB
 
 	// name, ref func
-	MigrationList map[string]func()
-	SeederList    map[string]func(*gorm.DB, *seeder.Option)
+	MigrationList map[string]func(*gorm.DB, migration.Option) error
+	SeederList    map[string]func(*gorm.DB, *seeder.Option) error
 )
 
 func Migrate(migrateModel ...any) error {
@@ -49,9 +50,12 @@ func Connect(dbConfig config.DBConfig) error {
 }
 
 func init() {
-	MigrationList = map[string]func(){}
+	MigrationList = map[string]func(*gorm.DB, migration.Option) error{
+		"truncate_product": migration.TruncateProduct,
+		"drop_product":     migration.DropProduct,
+	}
 
-	SeederList = map[string]func(*gorm.DB, *seeder.Option){
+	SeederList = map[string]func(*gorm.DB, *seeder.Option) error{
 		"product": seeder.SeedProducts,
 	}
 }

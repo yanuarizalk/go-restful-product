@@ -5,6 +5,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func SeedProducts(db *gorm.DB, opt *Option) {
-	Seeds[product.Data](db, opt)
+func SeedProducts(db *gorm.DB, opt *Option) error {
+	return Seeds[product.Data](db, opt)
 }

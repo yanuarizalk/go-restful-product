@@ -10,10 +10,16 @@ require (
 	github.com/google/uuid v1.5.0
 	github.com/joho/godotenv v1.5.1
 	github.com/ory/dockertest/v3 v3.10.0
+	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.16.2
 	gorm.io/driver/mysql v1.5.2
 	gorm.io/gorm v1.25.5
+)
+
+require (
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 )
 
 require (
