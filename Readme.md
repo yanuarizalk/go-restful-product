@@ -29,11 +29,14 @@ go test ./...
 ```
 
 
-##FAQ:
+## FAQ:
 
-** Q: Docker test?
-** A: Yes, bcs it's pain in the ass trying to mock up all interface, when testing database / environment related system it's better to go all out using integrated test instead
+**Q:** Docker test?
 
-** Q: Why there's no api versioning?
-** A: Api versioning could be ran as separate instance with help of api gateway management like traefik or kong, as development goes on, it will be hindrance to handle backward compability in same upstream.
+**A:** Yes, bcs it's pain in the ass trying to mock up all interface, when testing database / environment related system it's better to go all out using integrated test instead
+
+
+**Q:** Why there's no api versioning?
+
+**A:** Api versioning could be ran as separate instance with help of api gateway management like traefik or kong, as development goes on, it will be hindrance to handle backward compability in same upstream.
 
